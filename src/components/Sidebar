@@ -1,0 +1,43 @@
+interface SidebarProps {
+  currentPage: string;
+  onNavigate: (page: string) => void;
+  isOpen: boolean;
+  onClose: () => void;
+}
+
+function Sidebar({ currentPage, onNavigate, isOpen, onClose }: SidebarProps) {
+  const handleNavClick = (page: string) => {
+    onNavigate(page);
+    onClose();
+  };
+
+  return (
+    <>
+      <div 
+        className={`sidebar-overlay ${isOpen ? 'open' : ''}`}
+        onClick={onClose}
+      ></div>
+      <aside className={`sidebar ${isOpen ? 'open' : ''}`}>
+        <div className="sidebar-logo">Admin</div>
+        <nav className="sidebar-nav">
+          <button
+            className={`sidebar-link ${currentPage === 'dashboard' ? 'active' : ''}`}
+            onClick={() => handleNavClick('dashboard')}
+          >
+            <span className="sidebar-icon">📊</span>
+            <span>Dashboard</span>
+          </button>
+          <button
+            className={`sidebar-link ${currentPage === 'users' ? 'active' : ''}`}
+            onClick={() => handleNavClick('users')}
+          >
+            <span className="sidebar-icon">👥</span>
+            <span>Users</span>
+          </button>
+        </nav>
+      </aside>
+    </>
+  );
+}
+
+export default Sidebar;
